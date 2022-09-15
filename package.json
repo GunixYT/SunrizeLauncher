@@ -1,11 +1,11 @@
 {
-    "name": "Selvania-Launcher",
-    "preductname": "Selvania Launcher",
+    "name": "Sunrize-Launcher",
+    "preductname": "Sunrize Launcher",
     "version": "1.0.2",
-    "description": "Launcher Mincraft custom (crack, premium)",
+    "description": "Test y eventos de Sunrize Launcher",
     "main": "src/app.js",
-    "author": "Luuxis",
-    "url": "http://launcher.selvania.fr",
+    "author": "SunrizeStudios",
+    "url": "http://3.84.232.149/sunrizelauncher",
     "engines": {
         "node": "16.x.x"
     },
@@ -31,6 +31,6 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/luuxis/Selvania-Launcher.git"
+        "url": "git+https://github.com/GunixYT/SunrizeLauncher.git"
     }
 }
