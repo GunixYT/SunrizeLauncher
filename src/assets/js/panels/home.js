@@ -11,6 +11,10 @@ const { Launch, Status } = require('minecraft-java-core');
 const { ipcRenderer } = require('electron');
 const launch = new Launch();
 const pkg = require('../package.json');
+const { app, BrowserWindow, Menu } = require("electron");
+const path = require("path");
+const url = require("url");
+const shell = require("electron").shell;
 
 const dataDirectory = process.env.APPDATA || (process.platform == 'darwin' ? `${process.env.HOME}/Library/Application Support` : process.env.HOME)
 
@@ -24,6 +28,7 @@ class Home {
         this.initLaunch();
         this.initStatusServer();
         this.initBtn();
+        this.redes();
     }
 
     async initNews() {
@@ -62,7 +67,7 @@ class Home {
                         <div class="news-content">
                             <div class="bbWrapper">
                                 <p>${News.content.replace(/\n/g, '</br>')}</p>
-                                <p class="news-author">Auteur,<span> ${News.author}</span></p>
+                                <p class="news-author">Autor,<span> ${News.author}</span></p>
                             </div>
                         </div>`
                     news.appendChild(blockNews);
@@ -198,12 +203,35 @@ class Home {
         });
     }
 
+    redes(){
+        const pagina = document.getElementById("pagina");
+        const discord = document.getElementById("discord");
+        const youtube = document.getElementById("youtube");
+        const twitter = document.getElementById("twitter");
+
+        pagina.addEventListener('click', function handleClick() {
+            shell.openExternal('https://sunrize-game-studio-s.web.app/')
+          });
+
+        discord.addEventListener('click', function handleClick() {
+            shell.openExternal('https://discord.gg/9AkbDsA')
+          });
+
+        youtube.addEventListener('click', function handleClick() {
+            shell.openExternal('https://www.youtube.com/channel/UC6vkd63838m15GFDnqyPkbg')
+          });
+
+        twitter.addEventListener('click', function handleClick() {
+            shell.openExternal('https://twitter.com/Sunrize_Studio')
+          });
+    }
+
     async getdate(e) {
         let date = new Date(e)
         let year = date.getFullYear()
         let month = date.getMonth() + 1
         let day = date.getDate()
-        let allMonth = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+        let allMonth = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
         return { year: year, month: allMonth[month - 1], day: day }
     }
 }

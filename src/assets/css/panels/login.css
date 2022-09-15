@@ -22,27 +22,29 @@
     border: none;
     margin: 2% 0;
     height: 2em;
-    background-color: #00bd7a;
-    box-shadow: 0 0 5px #00bd7a;
-    color: #121212;
+    background-color: #131313;
+    box-shadow: 0 0 5px #131313;
+    color: #fff;
     font: normal normal bold 19px/29px Poppins;
     cursor: pointer;
 }
 
 .login-type-btn:hover {
-    background-color: #006e47;
-    box-shadow: 0 0 5px #006e47;
+    background-color: #1f1f1f;
+    box-shadow: 0 0 5px #1f1f1f;
+    transition: all .5s ease;
 }
 
 .login-type-btn:disabled {
-    background-color: #00bd7a;
-    box-shadow: 0 0 5px #00bd7a;
+    background-color: #131313;
+    box-shadow: 0 0 5px #131313;
     cursor: default;
 }
 
 .login-type-btn:disabled:hover {
-    background-color: #00bd7a;
-    box-shadow: 0 0 5px #00bd7a;
+    background-color: #1f1f1f;
+    box-shadow: 0 0 5px #1f1f1f;
+    transition: all .5s ease;
 }
 
 .login-card-mojang {
