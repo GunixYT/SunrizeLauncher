@@ -88,91 +88,8 @@ class Login {
         })
     }
 
-    loginMojang() {
-        let mailInput = document.querySelector('.Mail')
-        let passwordInput = document.querySelector('.Password')
-        let cancelMojangBtn = document.querySelector('.cancel-mojang')
-        let infoLogin = document.querySelector('.info-login')
-        let loginBtn = document.querySelector(".login-btn")
-        let mojangBtn = document.querySelector('.mojang')
-
-        mojangBtn.addEventListener("click", () => {
-            document.querySelector(".login-card").style.display = "none";
-            document.querySelector(".login-card-mojang").style.display = "block";
-        })
-
-        cancelMojangBtn.addEventListener("click", () => {
-            document.querySelector(".login-card").style.display = "block";
-            document.querySelector(".login-card-mojang").style.display = "none";
-        })
-
-        loginBtn.addEventListener("click", () => {
-            cancelMojangBtn.disabled = true;
-            loginBtn.disabled = true;
-            mailInput.disabled = true;
-            passwordInput.disabled = true;
-            infoLogin.innerHTML = "Conectando...";
-
-
-            if (mailInput.value == "") {
-                infoLogin.innerHTML = "Ingrese su correo/nombre de usuario"
-                cancelMojangBtn.disabled = false;
-                loginBtn.disabled = false;
-                mailInput.disabled = false;
-                passwordInput.disabled = false;
-                return
-            }
-
-            if (passwordInput.value == "") {
-                infoLogin.innerHTML = "Ingresa tu contraseña"
-                cancelMojangBtn.disabled = false;
-                loginBtn.disabled = false;
-                mailInput.disabled = false;
-                passwordInput.disabled = false;
-                return
-            }
-
-            Mojang.getAuth(mailInput.value, passwordInput.value).then(account_connect => {
-                let account = {
-                    access_token: account_connect.access_token,
-                    client_token: account_connect.client_token,
-                    uuid: account_connect.uuid,
-                    name: account_connect.name,
-                    user_properties: account_connect.user_properties,
-                    meta: {
-                        type: account_connect.meta.type,
-                        offline: account_connect.meta.offline
-                    }
-                }
-
-                this.database.add(account, 'accounts')
-                this.database.update({ uuid: "1234", selected: account.uuid }, 'accounts-selected');
-
-                addAccount(account)
-                accountSelect(account.uuid)
-                changePanel("home");
-
-                cancelMojangBtn.disabled = false;
-                cancelMojangBtn.click();
-                mailInput.value = "";
-                loginBtn.disabled = false;
-                mailInput.disabled = false;
-                passwordInput.disabled = false;
-                loginBtn.style.display = "block";
-                infoLogin.innerHTML = "&nbsp;";
-            }).catch(err => {
-                cancelMojangBtn.disabled = false;
-                loginBtn.disabled = false;
-                mailInput.disabled = false;
-                passwordInput.disabled = false;
-                infoLogin.innerHTML = 'Dirección de correo o contraseña no válidos'
-            })
-        })
-    }
-
     loginOffline() {
         let mailInput = document.querySelector('.Mail')
-        let passwordInput = document.querySelector('.Password')
         let cancelMojangBtn = document.querySelector('.cancel-mojang')
         let infoLogin = document.querySelector('.info-login')
         let loginBtn = document.querySelector(".login-btn")
@@ -194,16 +111,14 @@ class Login {
             cancelMojangBtn.disabled = true;
             loginBtn.disabled = true;
             mailInput.disabled = true;
-            passwordInput.disabled = true;
             infoLogin.innerHTML = "Conectando...";
 
 
             if (mailInput.value == "") {
-                infoLogin.innerHTML = "Ingrese su correo electrónico/nombre de usuario"
+                infoLogin.innerHTML = "Ingrese su nombre de usuario"
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
-                passwordInput.disabled = false;
                 return
             }
 
@@ -212,7 +127,6 @@ class Login {
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
-                passwordInput.disabled = false;
                 return
             }
 
@@ -221,20 +135,27 @@ class Login {
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
-                passwordInput.disabled = false;
                 return
             }
+            
 
-            if (mailInput.getAttributeNames() === " ") {
+            if (mailInput.value.indexOf(' ') > -1) {
                 infoLogin.innerHTML = "No uses espacios"
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
-                passwordInput.disabled = false;
                 return
             }
 
-            Mojang.getAuth(mailInput.value, passwordInput.value).then(async account_connect => {
+            if (mailInput.value.indexOf("@") > -1 || mailInput.value.indexOf("#") > -1 || mailInput.value.indexOf('"') > -1 || mailInput.value.indexOf('%') > -1 || mailInput.value.indexOf('$') > -1 || mailInput.value.indexOf('&') > -1 || mailInput.value.indexOf("'") > -1 || mailInput.value.indexOf("(") > -1 || mailInput.value.indexOf(")") > -1 || mailInput.value.indexOf("*") > -1 || mailInput.value.indexOf("+") > -1 || mailInput.value.indexOf(",") > -1 || mailInput.value.indexOf("-") > -1 || mailInput.value.indexOf(".") > -1 || mailInput.value.indexOf("/") > -1 || mailInput.value.indexOf(":") > -1 || mailInput.value.indexOf(";") > -1 || mailInput.value.indexOf("=") > -1 || mailInput.value.indexOf("?") > -1 || mailInput.value.indexOf("?") > -1 || mailInput.value.indexOf("[") > -1 || mailInput.value.indexOf(']') > -1 || mailInput.value.indexOf('^') > -1 || mailInput.value.indexOf('`') > -1 || mailInput.value.indexOf('{') > -1 || mailInput.value.indexOf('}') > -1 || mailInput.value.indexOf('~') > -1 || mailInput.value.indexOf('|') > -1 || mailInput.value.indexOf('\\') > -1 || mailInput.value.indexOf('\\') > -1) {
+                infoLogin.innerHTML = "No uses un caracter especial"
+                cancelMojangBtn.disabled = false;
+                loginBtn.disabled = false;
+                mailInput.disabled = false;
+                return
+            }
+
+            Mojang.getAuth(mailInput.value).then(async account_connect => {
                 let account = {
                     access_token: account_connect.access_token,
                     client_token: account_connect.client_token,
@@ -259,7 +180,6 @@ class Login {
                 mailInput.value = "";
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
-                passwordInput.disabled = false;
                 loginBtn.style.display = "block";
                 infoLogin.innerHTML = "&nbsp;";
             }).catch(err => {
@@ -267,7 +187,6 @@ class Login {
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
-                passwordInput.disabled = false;
                 infoLogin.innerHTML = 'Dirección de correo o contraseña no válidos'
             })
         })
