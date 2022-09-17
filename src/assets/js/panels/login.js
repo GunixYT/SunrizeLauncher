@@ -123,7 +123,15 @@ class Login {
             }
 
             if (mailInput.value.length < 5) {
-                infoLogin.innerHTML = "Su nombre de usuario debe tener mas de 5 caracteres"
+                infoLogin.innerHTML = "Su nombre debe tener mas de 5 caracteres"
+                cancelMojangBtn.disabled = false;
+                loginBtn.disabled = false;
+                mailInput.disabled = false;
+                return
+            }
+
+            if (mailInput.value.length > 14) {
+                infoLogin.innerHTML = "Su nombre debe tener menos de 14 caracteres"
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
