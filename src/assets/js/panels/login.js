@@ -20,19 +20,8 @@ class Login {
 
     getOnline() {
         console.log(`Initializing microsoft Panel...`)
-        console.log(`Initializing mojang Panel...`)
-        this.loginMicrosoft();
-        this.loginMojang();
-        document.querySelector('.cancel-login').addEventListener("click", () => {
-            document.querySelector(".cancel-login").style.display = "none";
-            changePanel("settings");
-        })
-    }
-
-    getOffline() {
-        console.log(`Initializing microsoft Panel...`)
-        console.log(`Initializing mojang Panel...`)
         console.log(`Initializing offline Panel...`)
+        console.log(`Initializing mojang Panel...`)
         this.loginMicrosoft();
         this.loginOffline();
         document.querySelector('.cancel-login').addEventListener("click", () => {
@@ -218,8 +207,26 @@ class Login {
                 return
             }
 
-            if (mailInput.value.length < 3) {
-                infoLogin.innerHTML = "Votre nom d'utilisateur doit avoir au moins 3 caractères"
+            if (mailInput.value.length < 5) {
+                infoLogin.innerHTML = "Su nombre de usuario debe tener mas de 5 caracteres"
+                cancelMojangBtn.disabled = false;
+                loginBtn.disabled = false;
+                mailInput.disabled = false;
+                passwordInput.disabled = false;
+                return
+            }
+
+            if (mailInput.value == "GunixYT") {
+                infoLogin.innerHTML = "No puedes usar ese nombre"
+                cancelMojangBtn.disabled = false;
+                loginBtn.disabled = false;
+                mailInput.disabled = false;
+                passwordInput.disabled = false;
+                return
+            }
+
+            if (mailInput.getAttributeNames() === " ") {
+                infoLogin.innerHTML = "No uses espacios"
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
